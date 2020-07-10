@@ -22,8 +22,8 @@ const Member = mongoose.model(
 
 function validate(member) {
 	const schema = {
-		first_name: Joi.string().max(50).required(),
-		last_name: Joi.string().max(50).required(),
+		firstName: Joi.string().max(50).required(),
+		lastName: Joi.string().max(50).required(),
 		email: Joi.string().email().required(),
 	};
 

@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 const Joi = require('Joi');
 
 const userSchema = new mongoose.Schema({
-	first_name: {
+	firstName: {
 		type: String,
 		required: true,
 		maxlength: 50,
 	},
-	last_name: {
+	lastName: {
 		type: String,
 		required: true,
 		maxlength: 50,
@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema({
 		minlength: 7,
 		maxlength: 1024,
 	},
-	created_at: {
+	createdAt: {
 		type: Date,
 		default: Date.now(),
 	},
@@ -31,11 +31,11 @@ const userSchema = new mongoose.Schema({
 
 function validate(user) {
 	const schema = {
-		first_name: Joi.string().max(50).required(),
-		last_name: Joi.string().max(50).required(),
+		firstName: Joi.string().max(50).required(),
+		lastName: Joi.string().max(50).required(),
 		email: Joi.string().email().required(),
 		password: Joi.string().min(7).max(1024).required(),
-		password_again: Joi.string()
+		passwordAgain: Joi.string()
 			.required()
 			.valid(Joi.ref('password'))
 			.error(() => {
