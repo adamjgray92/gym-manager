@@ -5,12 +5,12 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const userSchema = new mongoose.Schema({
-	firstName: {
+	first_name: {
 		type: String,
 		required: true,
 		maxlength: 50,
 	},
-	lastName: {
+	last_name: {
 		type: String,
 		required: true,
 		maxlength: 50,
@@ -26,25 +26,25 @@ const userSchema = new mongoose.Schema({
 		minlength: 7,
 		maxlength: 1024,
 	},
-	createdAt: {
+	created_at: {
 		type: Date,
 		default: Date.now(),
 	},
 });
 
 userSchema.methods.generateAuthToken = function () {
-	const token = jwt.sign({ _id: this._id }, process.env.JWT_PRIVATE_KEY);
+	const token = jwt.sign({ _id: this._id }, process.env.ACCESS_TOKEN_SECRET);
 
 	return token;
 };
 
 function validateRegister(user) {
 	const schema = {
-		firstName: Joi.string().max(50).required(),
-		lastName: Joi.string().max(50).required(),
+		first_name: Joi.string().max(50).required(),
+		last_name: Joi.string().max(50).required(),
 		email: Joi.string().email().required(),
 		password: Joi.string().min(7).max(1024).required(),
-		passwordAgain: Joi.string()
+		password_again: Joi.string()
 			.required()
 			.valid(Joi.ref('password'))
 			.error(() => {

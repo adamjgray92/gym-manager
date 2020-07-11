@@ -1,11 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
+const auth = require('../middleware/auth');
+
 const { Member, validate } = require('../models/Member');
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
 	try {
 		const members = await Member.find().sort('email');
 
@@ -31,8 +33,8 @@ router.post('/', async (req, res) => {
 		if (errors) return res.status(400).send(errors.details[0].message);
 
 		const member = new Member({
-			firstName: req.body.firstName,
-			lastName: req.body.lastName,
+			firstName: req.body.first_name,
+			lastName: req.body.last_name,
 			email: req.body.email,
 		});
 

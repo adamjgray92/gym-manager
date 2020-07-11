@@ -4,26 +4,31 @@ const Joi = require('joi');
 const Member = mongoose.model(
 	'Member',
 	new mongoose.Schema({
-		firstName: {
+		first_name: {
 			type: String,
 			required: true,
 			maxlength: 50,
 		},
-		lastName: {
+		last_name: {
 			type: String,
 			required: true,
 			maxlength: 50,
 		},
 		email: {
 			type: String,
+			required: true,
+		},
+		active: {
+			type: Boolean,
+			default: true,
 		},
 	})
 );
 
 function validate(member) {
 	const schema = {
-		firstName: Joi.string().max(50).required(),
-		lastName: Joi.string().max(50).required(),
+		first_name: Joi.string().max(50).required(),
+		last_name: Joi.string().max(50).required(),
 		email: Joi.string().email().required(),
 	};
 
